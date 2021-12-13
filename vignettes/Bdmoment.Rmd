@@ -16,11 +16,15 @@ knitr::opts_chunk$set(
 
 ##   This is a tutorial about how to use BendingMoment.generation package.
 
-#### When a truck travels on a bridges, we use static influence line to calculate unit load bending moment. We assume truck velocity is v(m/s), and Observation frequency is Hz,so We will get a sequence of bending moments at the mid-span of bridge within BridgeL/v time, every 1/Hz seconds.
+    When a truck travels on a bridges, we use static influence line to calculate unit load bending moment. We assume truck velocity is v(m/s), and Observation frequency is Hz,so We will get a sequence of bending moments at the mid-span of bridge within BridgeL/v time, every 1/Hz seconds.
 
-#### Static influence line = 
+### Static influence line = 
 
 $IL_m(x(t)) = \{ x(t) - \frac{x(t)*x_m}{L}\}$ if  $x(t) \leq x_m$  ,   $= \{ x_m - \frac{x(t)*x_m}{L}$ if  $x(t) > x_m$
+
+### Bending moment of The trucks with multi loads and spacings =
+
+$M(x(t)) = IL_m(x(t))*A_1 + IL_m((x-s_1)(t))*A_2 + IL_m((x-s_1-s_2)(t))*A_3 + \cdots + IL_m((x-s_1 -s_2-s_3 \cdots -s_{n-1})(t))*A_n$
 
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -28,11 +32,12 @@ library(BendingMoment.generation)
 
 
 ```
+
 ### Parameter description
 
 #### BendingMoment <- function(Trucktype, BridgeL, v, Hz, NoiseLevel)
 
-     param Trucktype: 9 types of trucks, with [1:9]
+     param Trucktype: 9 types of trucks, with 1-9
 
      param BridgeL: Length of bridge (m)
 
@@ -49,7 +54,7 @@ library(BendingMoment.generation)
 ### Truck attribute table
 
 
-#### Here are 9 types of trucks, each of them has different axle loads and axle spacings, for example, for truck1, it has two alxe load and one spacing between these two axles, so n(loads) = n(spacings) + 1. and the 0 means no axle load.
+    Here are 9 types of trucks, each of them has different axle loads and axle spacings, for example, for truck1, it has two alxe load and one spacing between these two axles, so n(loads) = n(spacings) + 1. and the 0 means no axle load.
 
 
 ```{r echo=FALSE}
@@ -86,9 +91,17 @@ Spacetable
 
 
 
-###  Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%. So when trcuk drives through this bridge, the bending moment generated at midspan will be a sequence in 2s, every 0.02s, we will record once.
+### Bending moment data of #5 truck under 0% level noise within 2 s.
 
-#### Unpolluted Bending moment of #5 truck under data within 2 s. 
+     param Trucktype: 3
+
+     param BridgeL: 100 (m)
+
+     param v: 50 (m/s)
+
+     param Hz: 50 Hz
+
+     param NoiseLevel: 0% 
 
 
 
@@ -99,9 +112,18 @@ data_truck5_0 <- BendingMoment(Trucktype = 3, BridgeL = 100,
 
 head(data_truck5_0,10)
 ```
-### Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%, 10%, 15%, 20%.
 
-#### Bending moment of #5 truck under data. 
+### Bending moment data of #5 truck under different level noise within 2 s.
+
+     param Trucktype: 3
+
+     param BridgeL: 100 (m)
+
+     param v: 50 (m/s)
+
+     param Hz: 50 Hz
+
+     param NoiseLevel: 0%, 5%, 10%, 15% 
 
 
 ```{r echo=FALSE}
@@ -128,9 +150,17 @@ with(data_truck5_15,plot(T,M))
 
 ```
 
-### Let set: Truck type = 1,3,5,8, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%.
+### Bending moment data of #1, 3, 5, 8 truck under 5% level noise within 2 s
 
-#### Bending moment of 4 types of  truck under 1% level noise 
+     param Trucktype: 1, 3, 5, 8
+
+     param BridgeL: 100 (m)
+
+     param v: 50 (m/s)
+
+     param Hz: 50 Hz
+
+     param NoiseLevel: 0% 
 
 
 ```{r echo=FALSE}

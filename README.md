@@ -14,11 +14,9 @@ This is a R package for generating bending moment generateda at the mid- span of
 
 ## How to install the R package
 
-'devtools::install_github("lzmmq/Bendingmoment.generation")`
+##### devtools::install_github("lzmmq/Bendingmoment.generation")
 
-if you want to build vignettes:
-
-'devtools::install_github("lzmmq/Bendingmoment.generation", build_vignettes = TRUE)`
+##### devtools::install_github("lzmmq/Bendingmoment.generation", build_vignettes = TRUE)
 
 ## Test example
 <<<<<<< HEAD
