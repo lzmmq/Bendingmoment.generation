@@ -1,0 +1,163 @@
+---
+title: "Bdmoment"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Bdmoment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+##   This is a tutorial about how to use BendingMoment.generation package.
+
+#### When a truck travels on a bridges, we use static influence line to calculate unit load bending moment. We assume truck velocity is v(m/s), and Observation frequency is Hz,so We will get a sequence of bending moments at the mid-span of bridge within BridgeL/v time, every 1/Hz seconds.
+
+#### Static influence line = 
+
+$IL_m(x(t)) = \{ x(t) - \frac{x(t)*x_m}{L}\}$ if  $x(t) \leq x_m$  ,   $= \{ x_m - \frac{x(t)*x_m}{L}$ if  $x(t) > x_m$
+
+```{r setup, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(BendingMoment.generation)
+
+
+```
+### Parameter description
+
+#### BendingMoment <- function(Trucktype, BridgeL, v, Hz, NoiseLevel)
+
+     param Trucktype: 9 types of trucks, with [1:9]
+
+     param BridgeL: Length of bridge (m)
+
+     param v: velocity of truck (m/s)
+
+     param Hz Observation frequency like 50 Hz is observe every 0.02s.
+
+     param NoiseLevel Usually 0%, 5%, 10%, 15%, 20% noise to    simulate the real data.
+
+     Output Bending_moment: A sequence of bending moments generated at mid-span of bridge, within BridgeL/v time, every 1/Hz seconds. 
+
+
+
+### Truck attribute table
+
+
+#### Here are 9 types of trucks, each of them has different axle loads and axle spacings, for example, for truck1, it has two alxe load and one spacing between these two axles, so n(loads) = n(spacings) + 1. and the 0 means no axle load.
+
+
+```{r echo=FALSE}
+Truck1_load <- c(31.7,35.5, 0, 0, 0, 0)
+Truck2_load <- c(34.1 ,19.1, 10.7, 0, 0, 0)
+Truck3_load <- c(29.5, 55.5, 45.0, 0, 0, 0)
+Truck4_load <- c(31.0, 72.3, 47.4, 44.7, 0, 0)
+Truck5_load <- c(50.3, 45.3, 65.9, 28.2, 0, 0)
+Truck6_load <- c(20.8, 76.8, 32.3, 14.8, 0, 0)
+Truck7_load <- c(18.3, 54.5, 41.7, 60.5, 63.8, 0)
+Truck8_load <- c(25.2, 44.3, 63.2, 61.4, 70.7, 18)
+Truck9_load <- c(40.3, 44.0, 50.9, 57.7, 17.1, 0)
+Loadtable <- rbind(Truck1_load,Truck2_load,Truck3_load,Truck4_load,Truck5_load,Truck6_load,Truck7_load,Truck8_load,Truck9_load)
+colnames(Loadtable) <- c("load1","load2","load3","load4","load5", "load6")
+
+
+Truck1_space <- c(2.8,  0.00,  0.00, 0.00, 0.00)
+Truck2_space <- c(5.6,  1.22,  0.00, 0.00,0.00)
+Truck3_space <- c(3.3, 11.50,  0.00, 0.00, 0.00)
+Truck4_space <- c(4.5,  1.22,  1.22, 0.00, 0.00)
+Truck5_space <- c(3.8,  1.22, 11.00, 0.00, 0.00)
+Truck6_space <- c(3.1,  7.60,  1.22, 0.00, 0.00)
+Truck7_space <- c(4.1,  1.22,  8.60, 1.22, 0.00)
+Truck8_space <- c(3.2,  1.22,  6.60, 1.22, 1.22)
+Truck9_space <- c(3.9,  5.49,  3.05, 5.49, 0.00)
+
+Spacetable <- rbind(Truck1_space,Truck2_space,Truck3_space,Truck4_space,Truck5_space,Truck6_space,Truck7_space,Truck8_space,Truck9_space)
+colnames(Spacetable) <- c("space1","space2","space3","space4","space5")
+Loadtable
+Spacetable
+  
+
+```
+
+
+
+###  Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%. So when trcuk drives through this bridge, the bending moment generated at midspan will be a sequence in 2s, every 0.02s, we will record once.
+
+#### Unpolluted Bending moment of #5 truck under data within 2 s. 
+
+
+
+
+```{r echo=FALSE}
+data_truck5_0 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+
+head(data_truck5_0,10)
+```
+### Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%, 10%, 15%, 20%.
+
+#### Bending moment of #5 truck under data. 
+
+
+```{r echo=FALSE}
+
+data_truck5_0 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+data_truck5_5 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0.05)
+data_truck5_10 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0.10)
+data_truck5_15 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0.15)
+
+
+
+
+with(data_truck5_0,plot(T,M))
+
+with(data_truck5_5,plot(T,M))
+
+with(data_truck5_10,plot(T,M))
+
+with(data_truck5_15,plot(T,M))
+
+```
+
+### Let set: Truck type = 1,3,5,8, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%.
+
+#### Bending moment of 4 types of  truck under 1% level noise 
+
+
+```{r echo=FALSE}
+
+data_truck1 <- BendingMoment(Trucktype = 1, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+data_truck3 <- BendingMoment(Trucktype = 3, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+data_truck5 <- BendingMoment(Trucktype = 5, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+data_truck8 <- BendingMoment(Trucktype = 8, BridgeL = 100, 
+                          v = 50, Hz =50, NoiseLevel = 0)
+
+
+
+with(data_truck1,plot(T,M))
+
+with(data_truck3,plot(T,M))
+
+with(data_truck5,plot(T,M))
+
+with(data_truck8,plot(T,M))
+
+```
+
+
+
+
+
+
