@@ -120,7 +120,7 @@ $$
 
 
 ##### 3.2 Example 1
-Bending moment data of #5 truck under 10% level noise within 2 s.
+Bending moment data of #3 truck under 10% level noise within 2 s.
 
      param Trucktype: 3
 
