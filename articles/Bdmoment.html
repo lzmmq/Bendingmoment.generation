@@ -69,15 +69,17 @@
 <div class="section level2">
 <h2 id="this-is-a-tutorial-about-how-to-use-bendingmoment-generation-package-">This is a tutorial about how to use BendingMoment.generation package.<a class="anchor" aria-label="anchor" href="#this-is-a-tutorial-about-how-to-use-bendingmoment-generation-package-"></a>
 </h2>
-<div class="section level4">
-<h4 id="when-a-truck-travels-on-a-bridges-we-use-static-influence-line-to-calculate-unit-load-bending-moment--we-assume-truck-velocity-is-vms-and-observation-frequency-is-hzso-we-will-get-a-sequence-of-bending-moments-at-the-mid-span-of-bridge-within-bridgelv-time-every-1hz-seconds-">When a truck travels on a bridges, we use static influence line to calculate unit load bending moment. We assume truck velocity is v(m/s), and Observation frequency is Hz,so We will get a sequence of bending moments at the mid-span of bridge within BridgeL/v time, every 1/Hz seconds.<a class="anchor" aria-label="anchor" href="#when-a-truck-travels-on-a-bridges-we-use-static-influence-line-to-calculate-unit-load-bending-moment--we-assume-truck-velocity-is-vms-and-observation-frequency-is-hzso-we-will-get-a-sequence-of-bending-moments-at-the-mid-span-of-bridge-within-bridgelv-time-every-1hz-seconds-"></a>
-</h4>
-</div>
-<div class="section level4">
-<h4 id="static-influence-line">Static influence line =<a class="anchor" aria-label="anchor" href="#static-influence-line"></a>
-</h4>
+<pre><code>When a truck travels on a bridges, we use static influence line to calculate unit load bending moment. We assume truck velocity is v(m/s), and Observation frequency is Hz,so We will get a sequence of bending moments at the mid-span of bridge within BridgeL/v time, every 1/Hz seconds.</code></pre>
+<div class="section level3">
+<h3 id="static-influence-line">Static influence line =<a class="anchor" aria-label="anchor" href="#static-influence-line"></a>
+</h3>
 <p><span class="math inline">\(IL_m(x(t)) = \{ x(t) - \frac{x(t)*x_m}{L}\}\)</span> if <span class="math inline">\(x(t) \leq x_m\)</span> , <span class="math inline">\(= \{ x_m - \frac{x(t)*x_m}{L}\)</span> if <span class="math inline">\(x(t) &gt; x_m\)</span></p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+</div>
+<div class="section level3">
+<h3 id="bending-moment-of-the-trucks-with-multi-loads-and-spacings">Bending moment of The trucks with multi loads and spacings =<a class="anchor" aria-label="anchor" href="#bending-moment-of-the-trucks-with-multi-loads-and-spacings"></a>
+</h3>
+<p><span class="math inline">\(M(x(t)) = IL_m(x(t))*A_1 + IL_m((x-s_1)(t))*A_2 + IL_m((x-s_1-s_2)(t))*A_3 + \cdots + IL_m((x-s_1 -s_2-s_3 \cdots -s_{n-1})(t))*A_n\)</span></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BendingMoment.generation</span><span class="op">)</span></code></pre></div>
 </div>
@@ -87,7 +89,7 @@
 <div class="section level4">
 <h4 id="bendingmoment---functiontrucktype-bridgel-v-hz-noiselevel">BendingMoment &lt;- function(Trucktype, BridgeL, v, Hz, NoiseLevel)<a class="anchor" aria-label="anchor" href="#bendingmoment---functiontrucktype-bridgel-v-hz-noiselevel"></a>
 </h4>
-<pre><code> param Trucktype: 9 types of trucks, with [1:9]
+<pre><code> param Trucktype: 9 types of trucks, with 1-9
 
  param BridgeL: Length of bridge (m)
 
@@ -103,9 +105,7 @@
 <div class="section level3">
 <h3 id="truck-attribute-table">Truck attribute table<a class="anchor" aria-label="anchor" href="#truck-attribute-table"></a>
 </h3>
-<div class="section level4">
-<h4 id="here-are-9-types-of-trucks-each-of-them-has-different-axle-loads-and-axle-spacings-for-example-for-truck1-it-has-two-alxe-load-and-one-spacing-between-these-two-axles-so-nloads-nspacings-1--and-the-0-means-no-axle-load-">Here are 9 types of trucks, each of them has different axle loads and axle spacings, for example, for truck1, it has two alxe load and one spacing between these two axles, so n(loads) = n(spacings) + 1. and the 0 means no axle load.<a class="anchor" aria-label="anchor" href="#here-are-9-types-of-trucks-each-of-them-has-different-axle-loads-and-axle-spacings-for-example-for-truck1-it-has-two-alxe-load-and-one-spacing-between-these-two-axles-so-nloads-nspacings-1--and-the-0-means-no-axle-load-"></a>
-</h4>
+<pre><code>Here are 9 types of trucks, each of them has different axle loads and axle spacings, for example, for truck1, it has two alxe load and one spacing between these two axles, so n(loads) = n(spacings) + 1. and the 0 means no axle load.</code></pre>
 <pre><code><span class="co">#&gt;             load1 load2 load3 load4 load5 load6</span>
 <span class="co">#&gt; Truck1_load  31.7  35.5   0.0   0.0   0.0     0</span>
 <span class="co">#&gt; Truck2_load  34.1  19.1  10.7   0.0   0.0     0</span>
@@ -127,13 +127,18 @@
 <span class="co">#&gt; Truck8_space    3.2   1.22   6.60   1.22   1.22</span>
 <span class="co">#&gt; Truck9_space    3.9   5.49   3.05   5.49   0.00</span></code></pre>
 </div>
-</div>
 <div class="section level3">
-<h3 id="let-set-truck-type-5-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0--so-when-trcuk-drives-through-this-bridge-the-bending-moment-generated-at-midspan-will-be-a-sequence-in-2s-every-0-02s-we-will-record-once-">Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%. So when trcuk drives through this bridge, the bending moment generated at midspan will be a sequence in 2s, every 0.02s, we will record once.<a class="anchor" aria-label="anchor" href="#let-set-truck-type-5-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0--so-when-trcuk-drives-through-this-bridge-the-bending-moment-generated-at-midspan-will-be-a-sequence-in-2s-every-0-02s-we-will-record-once-"></a>
+<h3 id="bending-moment-data-of-5-truck-under-0-level-noise-within-2-s-">Bending moment data of #5 truck under 0% level noise within 2 s.<a class="anchor" aria-label="anchor" href="#bending-moment-data-of-5-truck-under-0-level-noise-within-2-s-"></a>
 </h3>
-<div class="section level4">
-<h4 id="unpolluted-bending-moment-of-5-truck-under-data-within-2-s-">Unpolluted Bending moment of #5 truck under data within 2 s.<a class="anchor" aria-label="anchor" href="#unpolluted-bending-moment-of-5-truck-under-data-within-2-s-"></a>
-</h4>
+<pre><code> param Trucktype: 3
+
+ param BridgeL: 100 (m)
+
+ param v: 50 (m/s)
+
+ param Hz: 50 Hz
+
+ param NoiseLevel: 0% </code></pre>
 <pre><code><span class="co">#&gt;       T       M</span>
 <span class="co">#&gt; 1  0.00   0.000</span>
 <span class="co">#&gt; 2  0.02  14.750</span>
@@ -146,24 +151,33 @@
 <span class="co">#&gt; 9  0.16 248.425</span>
 <span class="co">#&gt; 10 0.18 290.925</span></code></pre>
 </div>
-</div>
 <div class="section level3">
-<h3 id="let-set-truck-type-5-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0-10-15-20-">Let set: Truck type = 5, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%, 10%, 15%, 20%.<a class="anchor" aria-label="anchor" href="#let-set-truck-type-5-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0-10-15-20-"></a>
+<h3 id="bending-moment-data-of-5-truck-under-different-level-noise-within-2-s-">Bending moment data of #5 truck under different level noise within 2 s.<a class="anchor" aria-label="anchor" href="#bending-moment-data-of-5-truck-under-different-level-noise-within-2-s-"></a>
 </h3>
-<div class="section level4">
-<h4 id="bending-moment-of-5-truck-under-data-">Bending moment of #5 truck under data.<a class="anchor" aria-label="anchor" href="#bending-moment-of-5-truck-under-data-"></a>
-</h4>
+<pre><code> param Trucktype: 3
+
+ param BridgeL: 100 (m)
+
+ param v: 50 (m/s)
+
+ param Hz: 50 Hz
+
+ param NoiseLevel: 0%, 5%, 10%, 15% </code></pre>
 <p><img src="Bdmoment_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-4-2.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-4-3.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-4-4.png" width="700"></p>
 </div>
-</div>
 <div class="section level3">
-<h3 id="let-set-truck-type-1358-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0-">Let set: Truck type = 1,3,5,8, bridgeL = 100(m), velocity = 50(m/s), Observation = 50 Hz, Noise level = 0%.<a class="anchor" aria-label="anchor" href="#let-set-truck-type-1358-bridgel-100m-velocity-50ms-observation-50-hz-noise-level-0-"></a>
+<h3 id="bending-moment-data-of-1-3-5-8-truck-under-5-level-noise-within-2-s">Bending moment data of #1, 3, 5, 8 truck under 5% level noise within 2 s<a class="anchor" aria-label="anchor" href="#bending-moment-data-of-1-3-5-8-truck-under-5-level-noise-within-2-s"></a>
 </h3>
-<div class="section level4">
-<h4 id="bending-moment-of-4-types-of-truck-under-1-level-noise">Bending moment of 4 types of truck under 1% level noise<a class="anchor" aria-label="anchor" href="#bending-moment-of-4-types-of-truck-under-1-level-noise"></a>
-</h4>
+<pre><code> param Trucktype: 1, 3, 5, 8
+
+ param BridgeL: 100 (m)
+
+ param v: 50 (m/s)
+
+ param Hz: 50 Hz
+
+ param NoiseLevel: 0% </code></pre>
 <p><img src="Bdmoment_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-5-2.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-5-3.png" width="700"><img src="Bdmoment_files/figure-html/unnamed-chunk-5-4.png" width="700"></p>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
