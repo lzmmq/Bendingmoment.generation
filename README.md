@@ -4,7 +4,9 @@
 
   [![R-CMD-check](https://github.com/lzmmq/Bendingmoment.generation/workflows/R-CMD-check/badge.svg)](https://github.com/lzmmq/Bendingmoment.generation/actions)
   
-  <!-- badges: end -->
+[![CRAN status](https://www.r-pkg.org/badges/version/BendingMoment.generation)](https://CRAN.R-project.org/package=BendingMoment.generation)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+<!-- badges: end -->
 
 # Bendingmoment.generation
 
