@@ -19,8 +19,6 @@ This is a R package for generating bending moment generateda at the mid- span of
 ##### devtools::install_github("lzmmq/Bendingmoment.generation", build_vignettes = TRUE)
 
 ## Test example
-<<<<<<< HEAD
-'BendingMoment(1,100,50,50,0.05)'
-=======
-'BendingMoment(1,100,50,50,0.05)'
->>>>>>> faaa921b66a3cd8835e8eb900eb9da8cd8ddad6d
+
+##### BendingMoment(1,100,50,50,0.05)
+
